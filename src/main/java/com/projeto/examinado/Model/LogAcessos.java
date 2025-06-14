@@ -1,12 +1,20 @@
 package com.projeto.examinado.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 
 @Entity
 @Table(name="log_acessos")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LogAcessos {
 
     @Id
@@ -19,5 +27,8 @@ public class LogAcessos {
 
     @Column(name="time_stamp", nullable = false)
     private Timestamp timeStamp;
+
+    @Column(name ="indicador_login", nullable = false)
+    private String indicadorLogin;
 
 }

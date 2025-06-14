@@ -1,5 +1,6 @@
 package com.projeto.examinado.Service;
 
+import com.projeto.examinado.Enum.IndicadorLogin;
 import com.projeto.examinado.Model.LogAcessos;
 import com.projeto.examinado.Model.Usuarios;
 import com.projeto.examinado.Model.UsuariosDTO;
@@ -46,14 +47,18 @@ public class AuthService {
 
         boolean senhaCorreta = PasswordHasher.encode(loginDTO.senhaHash()).equals(usuario.getSenhaHash());
 
-        if (!senhaCorreta){
-            throw new RuntimeException("Senha incorreta");
-        }
 
         String ipUsuario = IpGetter.getUserIp(request);
         System.out.println("IP:" + ipUsuario);
+//        LogAcessos logAcessos = new LogAcessos();
+        System.out.println("Indicador: " + IndicadorLogin.INVALIDO.descricao);
+        System.out.println("Indicador: " + IndicadorLogin.INVALIDO.name());
+        System.out.println("Indicador: " + IndicadorLogin.SENHA_INCORRETA.descricao);
+        System.out.println("Indicador: " + IndicadorLogin.SENHA_INCORRETA.name());
+//        logAcessos.setIndicadorLogin(IndicadorLogin.INVALIDO.name());
 
-
+// TO DO : SISTEMA DE LOG DE ACESSOS COM ERROS NAS TENTATIVAS E O IP DO USUARIO!!!!!
+        // PEGAR QUAL É O IPV4 AO INVES DO IPV6 NO LOG
         return senhaCorreta;
 
     }
