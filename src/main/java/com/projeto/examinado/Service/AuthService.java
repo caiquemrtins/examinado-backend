@@ -30,8 +30,10 @@ public class AuthService {
 
 
     public Usuarios cadastrarUsuario (UsuariosDTO usuarioDTO){
-        System.out.println("Entrei no service");
-        if (usuarioRepository.findByEmail(usuarioDTO.email()) != null){
+
+//      No Optional, nao ve se o retorno é nulo ou não nulo, até porque o optional nao devolve nulo
+//      Então devemos testar se isPresent ou isEmpty ao inves de testar se é nulo.
+        if (usuarioRepository.findByEmail(usuarioDTO.email()).isPresent()){
             throw new RuntimeException("E-mail já cadastrado");
         }
 
