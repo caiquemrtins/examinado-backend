@@ -46,6 +46,7 @@ public class AuthController {
                                          HttpServletRequest request){
         System.out.println("Login");
         System.out.println("Header:" + request.getHeaderNames());
+
         boolean tentativaLogin;
         try {
              tentativaLogin= this.authService.login(login, request);
