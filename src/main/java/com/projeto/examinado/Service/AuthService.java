@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+
+
 
 @Service
 @RequiredArgsConstructor
@@ -49,16 +52,25 @@ public class AuthService {
 
 
         String ipUsuario = IpGetter.getUserIp(request);
-        System.out.println("IP:" + ipUsuario);
-//        LogAcessos logAcessos = new LogAcessos();
-        System.out.println("Indicador: " + IndicadorLogin.INVALIDO.descricao);
-        System.out.println("Indicador: " + IndicadorLogin.INVALIDO.name());
-        System.out.println("Indicador: " + IndicadorLogin.SENHA_INCORRETA.descricao);
-        System.out.println("Indicador: " + IndicadorLogin.SENHA_INCORRETA.name());
-//        logAcessos.setIndicadorLogin(IndicadorLogin.INVALIDO.name());
+        LogAcessos logAcessos = new LogAcessos();
 
-// TO DO : SISTEMA DE LOG DE ACESSOS COM ERROS NAS TENTATIVAS E O IP DO USUARIO!!!!!
-        // PEGAR QUAL É O IPV4 AO INVES DO IPV6 NO LOG
+        logAcessos.setUsuario(usuario);
+        logAcessos.setIpAcesso(ipUsuario);
+
+//       Pego o timestamp atual e coloco no log.
+        logAcessos.setTimeStamp(new Timestamp(System.currentTimeMillis()));
+
+
+        if (senhaCorreta){
+            logAcessos.setIndicadorLogin(IndicadorLogin.VALIDO.descricao);
+        } else {
+            logAcessos.setIndicadorLogin(IndicadorLogin.SENHA_INCORRETA.descricao);
+        }
+
+
+        logAcessosRepository.save(logAcessos);
+
+
         return senhaCorreta;
 
     }

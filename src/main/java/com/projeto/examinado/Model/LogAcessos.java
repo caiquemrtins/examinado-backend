@@ -31,4 +31,10 @@ public class LogAcessos {
     @Column(name ="indicador_login", nullable = false)
     private String indicadorLogin;
 
+    @ManyToOne
+    @JoinColumn(name ="usuario_id")
+    private Usuarios usuario;
+
+
+
 }
